@@ -1,30 +1,29 @@
 class Solution {
 private:
-    // Check karta hai ki 'day' tak 'm' bouquets ban sakte hain ya nahi
     bool possible(vector<int>& bloomDay, int day, int m, int k) {
         int count = 0;
         int noOfBouquets = 0;
 
         for (int i = 0; i < bloomDay.size(); i++) {
             if (bloomDay[i] <= day) {
-                count++; // Continuous flower bloom ho gaya
+                count++;
             } else {
-                noOfBouquets += (count / k); // Jinte complete bouquets bane unhe add karo
-                count = 0; // Sequence break
+                noOfBouquets += (count / k);
+                count = 0;
             }
         }
-        noOfBouquets += (count / k); // Last continuous segment ke bouquets count karo
+        noOfBouquets += (count / k);
 
         return noOfBouquets >= m;
     }
 
 public:
     int minDays(vector<int>& bloomDay, int m, int k) {
-        long long val = m * 1LL * k; // Total required flowers
         int n = bloomDay.size();
 
-        // Edge case: Total flowers required > total flowers available
-        if (val > n) return -1;
+        // Safe Check: Agar total flowers required (m * k) > total available (n)
+        // Iso 'm > n / k' likhne se integer overflow nahi hota
+        if (m > n / k) return -1;
 
         int low = bloomDay[0];
         int high = bloomDay[0];
@@ -34,18 +33,17 @@ public:
             high = max(high, bloomDay[i]);
         }
 
-        // Binary Search on Answer Space [low, high]
+        // Standard Binary Search
         while (low <= high) {
             int mid = low + (high - low) / 2;
 
             if (possible(bloomDay, mid, m, k)) {
-                high = mid - 1; // Left half mein aur chhota day search karo
+                high = mid - 1; // Aur chhota day try karo
             } else {
-                low = mid + 1;  // Right half mein jao (flowers aur chahiye)
+                low = mid + 1;  // Bigger day try karo
             }
         }
 
-        // Loop end hone par 'low' minimum valid day ko point karega
-        return low; 
+        return low;
     }
 };
