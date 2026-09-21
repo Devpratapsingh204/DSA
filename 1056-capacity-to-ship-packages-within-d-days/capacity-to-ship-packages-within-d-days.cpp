@@ -1,7 +1,7 @@
 class Solution {
 private:
     // Helper function: Calculates how many days are needed for a given capacity
-    int findDays(const vector<int>& weights, int cap) {
+    int findDays(vector<int>& weights, int cap) {
         int days = 1;
         int load = 0;
 
