@@ -2,17 +2,9 @@ class Solution {
 public:
     int singleNumber(vector<int>& nums) {
         int n=nums.size();
-        int ans;
-        for(int i=0 ; i< nums.size(); i++){
-            int count=0;
-            for(int j=0 ;j<n;j++){
-                if(nums[i]==nums[j]){
-                    count++;
-                }
-            }
-            if(count==1){
-                ans=nums[i];
-            }
+        int ans=0;
+        for(int i=0; i<n;i++){
+            ans^=nums[i];
         }
         return ans;
     }
