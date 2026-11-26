@@ -1,21 +1,23 @@
 class Solution {
 public:
     bool isPalindrome(string s) {
-        string cleaned = "";
+        int left = 0;
+        int right = s.size() - 1;
 
-        // keep only letters/numbers
-        for(char ch : s) {
-            if(isalnum(ch)) {
-                cleaned += tolower(ch);
+        while (left < right) {
+            if (!isalnum(s[left])) {
+                left++;
+            } else if (!isalnum(s[right])) {
+                right--;
+            } else {
+                if (tolower(s[left]) != tolower(s[right])) {
+                    return false;
+                }
+                left++;
+                right--;
             }
         }
 
-        string reversed = cleaned;
-        reverse(reversed.begin(), reversed.end());
-
-        if(cleaned == reversed)
-            return true;
-        else
-            return false;
+        return true;
     }
 };
