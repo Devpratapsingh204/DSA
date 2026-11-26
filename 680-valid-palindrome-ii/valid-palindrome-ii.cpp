@@ -15,8 +15,7 @@ public:
         int right=s.size()-1;
         while(left<right){
             if(s[left]!=s[right]){
-                return isPalindromeRange(s, left + 1, right) ||
-                       isPalindromeRange(s, left, right - 1);
+                return isPalindromeRange(s, left + 1, right) || isPalindromeRange(s, left, right - 1);
 
             }
             left++;
